@@ -1,0 +1,469 @@
+/* styles.css - Thème MG EXPERTISE */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: #003366;
+    /* bleu foncé MG EXPERTISE */
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0 0 5px 0;
+    font-weight: 700;
+}
+
+header p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+a {
+    color: #ff6600;
+    /* orange MG EXPERTISE */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav button.tab {
+    background-color: #006699;
+    /* bleu moyen */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-right: 8px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+nav button.tab.active,
+nav button.tab:hover {
+    background-color: #ff6600;
+    /* orange MG EXPERTISE */
+}
+
+.view {
+    display: none;
+}
+
+.active-view {
+    display: block;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #003366;
+    color: white;
+    font-weight: 700;
+}
+
+tr.retard {
+    background-color: #f8d7da;
+    /* rouge clair */
+}
+
+tr.valide {
+    background-color: #d4edda;
+    /* vert clair */
+}
+
+textarea {
+    width: 100%;
+    min-height: 40px;
+    font-family: inherit;
+    font-size: 0.9em;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+button {
+    background-color: #006699;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin: 0 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #ff6600;
+}
+
+
+/* FullCalendar overrides for matching style */
+
+.fc {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fc-daygrid-event {
+    border-radius: 4px !important;
+    font-weight: 600;
+    color: white !important;
+}
+
+.fc-toolbar-title {
+    font-weight: 700 !important;
+    font-size: 1.5em !important;
+    color: #003366 !important;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f8fa;
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    padding: 1rem 2rem;
+    /* border-radius: 0 0 0.5rem 0.5rem; */
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+header h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255 255 255 / 0.8);
+    border: 2px solid #007BFF;
+}
+
+.user-details h5,
+.user-details small {
+    margin: 0;
+    line-height: 1.1;
+}
+
+.user-details h5 {
+    font-weight: 600;
+}
+
+a.logout-btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+a.logout-btn:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+    color: white;
+}
+
+main.container {
+    flex-grow: 1;
+    max-width: 1100px;
+    margin: 2rem auto;
+}
+
+
+/* Info rapide section */
+
+section.quick-info {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 0 15px rgb(0 115 230 / 0.15);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #222;
+}
+
+section.quick-info h4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #003366;
+}
+
+section.quick-info p {
+    margin-bottom: 0.4rem;
+}
+
+section.quick-info p em {
+    color: #666;
+}
+
+section.quick-info strong {
+    color: #007BFF;
+}
+
+
+/* Tabs */
+
+ul.nav-tabs {
+    border-bottom: 2px solid #003366;
+    margin-bottom: 1rem;
+}
+
+ul.nav-tabs .nav-link {
+    color: #003366;
+    font-weight: 600;
+    border: none;
+    padding: 0.75rem 1.2rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: #e6f0ff;
+    transition: background-color 0.3s ease;
+}
+
+ul.nav-tabs .nav-link.active {
+    background-color: white;
+    border: 2px solid #003366;
+    border-bottom-color: white;
+    color: #003366;
+}
+
+ul.nav-tabs .nav-link:hover:not(.active) {
+    background-color: #cce0ff;
+    color: #002244;
+}
+
+
+/* Search inputs */
+
+.search-input {
+    max-width: 360px;
+    margin: 0 0 1rem 0;
+    border-radius: 1.5rem;
+    padding-left: 2.5rem;
+    box-shadow: inset 1px 1px 4px rgb(0 0 0 / 0.1);
+    transition: box-shadow 0.3s ease;
+    position: relative;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 8px #007BFF;
+    outline: none;
+    border-color: #007BFF;
+}
+
+
+/* Icon loupe dans la search */
+
+.search-wrapper {
+    position: relative;
+    max-width: 360px;
+    margin-bottom: 1rem;
+}
+
+.search-wrapper svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: #007BFF;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+
+/* Tables */
+
+table {
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgb(0 0 0 / 0.05);
+    border-collapse: separate !important;
+    border-spacing: 0;
+    font-size: 0.9rem;
+}
+
+thead tr {
+    background-color: #003366;
+    color: white;
+    text-align: left;
+    font-weight: 700;
+}
+
+tbody tr {
+    transition: background-color 0.25s ease;
+}
+
+tbody tr:hover {
+    background-color: #e6f0ff;
+    cursor: pointer;
+}
+
+tbody tr.table-danger {
+    background-color: #f8d7da !important;
+    color: #842029;
+}
+
+tbody tr.table-success {
+    background-color: #d1e7dd !important;
+    color: #0f5132;
+}
+
+tbody tr.table-warning {
+    background-color: #fff3cd !important;
+    color: #664d03;
+}
+
+td,
+th {
+    padding: 0.6rem 1rem;
+    vertical-align: middle;
+}
+
+textarea.form-control {
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 48px;
+}
+
+button.btn-sm {
+    min-width: 75px;
+    margin: 0 0.1rem 0.1rem 0;
+}
+
+
+/* Cards dossiers */
+
+.card-dossier {
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+    border-radius: 0.6rem;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 0.07);
+    background: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-dossier:hover {
+    box-shadow: 0 0 20px #007BFFaa;
+    border-color: #007BFF;
+}
+
+.card-dossier .card-body p {
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.card-dossier .card-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #003366;
+}
+
+
+/* Calendar */
+
+#calendar {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 15px rgb(0 0 0 / 0.1);
+    padding: 1rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+
+/* Modal */
+
+.modal-content {
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.modal-header {
+    background-color: #003366;
+    color: white;
+    border-bottom: none;
+}
+
+.modal-footer button.btn-primary {
+    background-color: #007BFF;
+    border-color: #007BFF;
+}
+
+.modal-footer button.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+
+/* Responsive tweaks */
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    main.container {
+        margin: 1rem 1rem 2rem;
+    }
+    .search-input,
+    .search-wrapper {
+        max-width: 100%;
+    }
+}
