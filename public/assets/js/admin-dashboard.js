@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const config = window.AdminDashboardConfig || {};
   const routes = config.routes || {};
   const csrfToken = config.csrfToken || '';
@@ -76,7 +76,7 @@
       return;
     }
 
-    showToast(json.message || 'Action enregistrÃ©e.');
+    showToast(json.message || 'Action enregistrée.');
     if (json.notice) showToast(json.notice, 'warning');
 
     if (form.dataset.refreshUsers === '1') {
@@ -126,7 +126,7 @@
   const setImportLoading = (isLoading) => {
     const buttonMap = [
       [confirmImportBtn, 'Valider l\'importation'],
-      [confirmOverwriteFromPopupBtn, 'Confirmer l\'Ã©crasement'],
+      [confirmOverwriteFromPopupBtn, 'Confirmer l\'écrasement'],
     ];
 
     buttonMap.forEach(([btn, label]) => {
@@ -189,11 +189,11 @@
   async function handleFile(file) {
     if (!file) return;
     const ext = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
-    if (!['.csv', '.xlsx'].includes(ext)) { showToast('Seuls les fichiers .csv et .xlsx sont acceptÃ©s.', 'error'); return; }
+    if (!['.csv', '.xlsx'].includes(ext)) { showToast('Seuls les fichiers .csv et .xlsx sont acceptés.', 'error'); return; }
 
     if (filePreview) {
       filePreview.style.display = 'block';
-      filePreview.innerHTML = `<strong>Fichier sÃ©lectionnÃ© :</strong> ${file.name} (${(file.size / 1024).toFixed(1)} Ko)`;
+      filePreview.innerHTML = `<strong>Fichier sélectionné :</strong> ${file.name} (${(file.size / 1024).toFixed(1)} Ko)`;
     }
 
     const reader = new FileReader();
@@ -204,15 +204,15 @@
       const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
 
       dossiersGlobaux = rows.map(row => ({
-        code_dossier: row['NÂ°Dossier'] || row['NoDossier'] || '',
-        societe: row['Nom SociÃ©tÃ©'] || row['Nom Societe'] || '',
+        code_dossier: row['N°Dossier'] || row['NoDossier'] || '',
+        societe: row['Nom Société'] || row['Nom Societe'] || '',
         groupe: row['Groupe'] || '',
         collab: (row['Collab 2025'] || '').trim() || null,
         cdm: (row['CDM 2025'] || '').trim() || null,
-        associe: (row['AssociÃ©'] || row['Associe'] || '').trim() || null,
-        heure_prevues: parseFloat(row[' Temps prÃ©vi collab hors conso 2025 '] || row['Heures'] || 0) || 0,
-        date_reception: parseExcelDate(row['Date rÃ©ception'] || row['Date reception']),
-        critere: row['CritÃ¨re'] || row['Critere'] || 0,
+        associe: (row['Associé'] || row['Associe'] || '').trim() || null,
+        heure_prevues: parseFloat(row[' Temps prévi collab hors conso 2025 '] || row['Heures'] || 0) || 0,
+        date_reception: parseExcelDate(row['Date réception'] || row['Date reception']),
+        critere: row['Critère'] || row['Critere'] || 0,
       })).filter(d => d.code_dossier && d.code_dossier.trim() !== '');
 
       selectedTargetYear = await askTargetFiscalYear();
@@ -231,7 +231,7 @@
       detectMissingUsers(dossiersGlobaux);
       if (openValidationBtn) openValidationBtn.style.display = 'inline-block';
       if (overwriteWarning) overwriteWarning.style.display = existingCount > 0 ? 'block' : 'none';
-      if (existingCount > 0) showToast(`Attention: ${existingCount} dossiers existants seront Ã©crasÃ©s aprÃ¨s confirmation.`, 'warning');
+      if (existingCount > 0) showToast(`Attention: ${existingCount} dossiers existants seront écrasés après confirmation.`, 'warning');
     };
     reader.readAsArrayBuffer(file);
   }
@@ -254,7 +254,7 @@
     if (!missingUsersList) return;
     missingUsersList.innerHTML = '';
     if (missing.size === 0) {
-      missingUsersList.innerHTML = `<li class="list-group-item list-group-item-success">Aucun utilisateur manquant dÃ©tectÃ©.</li>`;
+      missingUsersList.innerHTML = `<li class="list-group-item list-group-item-success">Aucun utilisateur manquant détecté.</li>`;
       if (createMissingBtn) createMissingBtn.style.display = 'none';
       return;
     }
@@ -286,8 +286,8 @@
 
   createMissingBtn?.addEventListener('click', async () => {
     const usersToCreate = Array.from(missingUsersList.querySelectorAll('li')).map(li => li.textContent).filter(v => !v.includes('Aucun utilisateur'));
-    if (usersToCreate.length === 0) return showToast('Aucun utilisateur Ã  crÃ©er.', 'warning');
-    if (!window.confirm(`CrÃ©er ${usersToCreate.length} utilisateurs manquants ?`)) return;
+    if (usersToCreate.length === 0) return showToast('Aucun utilisateur à créer.', 'warning');
+    if (!window.confirm(`Créer ${usersToCreate.length} utilisateurs manquants ?`)) return;
 
     const res = await fetch(routes.createMissingUsers, {
       method: 'POST',
@@ -295,9 +295,9 @@
       body: JSON.stringify({ users: usersToCreate, roles_by_user: buildRolesByUserFromDossiers(dossiersGlobaux) }),
     });
     const json = await res.json();
-    if (!json.success) return showToast(json.error || 'Erreur de crÃ©ation des utilisateurs.', 'error');
-    showToast(json.message || 'OpÃ©ration terminÃ©e.');
-    showToast("Mots de passe temporaires crÃ©Ã©s. Les utilisateurs recevront les informations de connexion par email.", 'warning');
+    if (!json.success) return showToast(json.error || 'Erreur de création des utilisateurs.', 'error');
+    showToast(json.message || 'Opération terminée.');
+    showToast("Mots de passe temporaires créés. Les utilisateurs recevront les informations de connexion par email.", 'warning');
 
     usersToCreate.forEach(code => utilisateursExistants.add(code));
     detectMissingUsers(dossiersGlobaux);
@@ -351,7 +351,7 @@
 
   exportBeforeOverwriteBtn?.addEventListener('click', () => {
     document.getElementById('exportBackupForm')?.submit();
-    showToast("Export de sauvegarde lancÃ© dans un nouvel onglet.", 'warning');
+    showToast("Export de sauvegarde lancé dans un nouvel onglet.", 'warning');
   });
 
   document.addEventListener('submit', async (e) => {
@@ -377,7 +377,7 @@
       return;
     }
 
-    showToast(json.message || 'Action enregistrÃ©e.');
+    showToast(json.message || 'Action enregistrée.');
     if (json.notice) showToast(json.notice, 'warning');
 
     if (form.dataset.refreshUsers === '1') {

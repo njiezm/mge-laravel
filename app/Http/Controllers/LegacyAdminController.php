@@ -69,7 +69,7 @@ class LegacyAdminController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => ! $actif ? 'Utilisateur activÃƒÂ©.' : 'Utilisateur dÃƒÂ©sactivÃƒÂ©.',
+                'message' => ! $actif ? 'Utilisateur activé.' : 'Utilisateur désactivé.',
                 ...$this->usersFragments(),
             ]);
         }
@@ -86,7 +86,7 @@ class LegacyAdminController extends Controller
         if ($request->expectsJson()) {
             return response()->json([
                 'success' => true,
-                'message' => 'Utilisateur supprimÃƒÂ©.',
+                'message' => 'Utilisateur supprimé.',
                 ...$this->usersFragments(),
             ]);
         }
@@ -577,7 +577,7 @@ class LegacyAdminController extends Controller
                         <td style="text-align:right;">
                             <div style="font-size:20px;color:#003366;font-weight:700;">MG EXPERTISE</div>
                             <div style="font-size:12px;color:#666;">' . e($title) . '</div>
-                            <div style="font-size:10px;color:#999;">GÃƒÂ©nÃƒÂ©rÃƒÂ© le ' . e(now()->format('d/m/Y H:i')) . '</div>
+                            <div style="font-size:10px;color:#999;">Généré le ' . e(now()->format('d/m/Y H:i')) . '</div>
                         </td>
                     </tr>
                 </table>
@@ -630,7 +630,7 @@ class LegacyAdminController extends Controller
     {
         $r = strtolower(trim($role));
         return match ($r) {
-            'associe', 'associÃƒÂ©' => 'associe',
+            'associe', 'associé' => 'associe',
             'chef', 'chef_de_mission', 'cdm' => 'chef',
             default => 'collaborateur',
         };
