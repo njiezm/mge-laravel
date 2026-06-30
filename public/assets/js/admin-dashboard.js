@@ -18,6 +18,35 @@
     el.addEventListener('hidden.bs.toast', () => el.remove());
   };
 
+  const askConfirm = (message, { title = 'Confirmation', confirmLabel = 'Confirmer', cancelLabel = 'Annuler', variant = 'primary' } = {}) => {
+    return new Promise(resolve => {
+      const modalEl = document.createElement('div');
+      modalEl.className = 'modal fade';
+      modalEl.tabIndex = -1;
+      modalEl.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">${title}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body"><p class="mb-0">${message}</p></div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-action="cancel">${cancelLabel}</button>
+              <button type="button" class="btn btn-${variant}" data-action="confirm">${confirmLabel}</button>
+            </div>
+          </div>
+        </div>`;
+      document.body.appendChild(modalEl);
+      const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
+      let result = false;
+      modalEl.querySelector('[data-action="confirm"]').addEventListener('click', () => { result = true; modal.hide(); });
+      modalEl.querySelector('[data-action="cancel"]').addEventListener('click', () => { result = false; modal.hide(); });
+      modalEl.addEventListener('hidden.bs.modal', () => { modalEl.remove(); resolve(result); });
+      modal.show();
+    });
+  };
+
   const refreshUsersFragments = async (payload = null) => {
     let data = payload;
     if (!data || !data.users_rows_html) {
@@ -59,7 +88,7 @@
     e.preventDefault();
 
     const confirmMsg = form.dataset.confirm;
-    if (confirmMsg && !window.confirm(confirmMsg)) return;
+    if (confirmMsg && !(await askConfirm(confirmMsg, { title: 'Confirmation', confirmLabel: 'Confirmer', variant: 'danger' }))) return;
 
     const formData = new FormData(form);
     formData.append('_token', csrfToken);
@@ -287,7 +316,7 @@
   createMissingBtn?.addEventListener('click', async () => {
     const usersToCreate = Array.from(missingUsersList.querySelectorAll('li')).map(li => li.textContent).filter(v => !v.includes('Aucun utilisateur'));
     if (usersToCreate.length === 0) return showToast('Aucun utilisateur à créer.', 'warning');
-    if (!window.confirm(`Créer ${usersToCreate.length} utilisateurs manquants ?`)) return;
+    if (!(await askConfirm(`Créer ${usersToCreate.length} utilisateurs manquants ?`, { title: 'Créer les comptes', confirmLabel: 'Créer', variant: 'primary' }))) return;
 
     const res = await fetch(routes.createMissingUsers, {
       method: 'POST',
@@ -352,39 +381,6 @@
   exportBeforeOverwriteBtn?.addEventListener('click', () => {
     document.getElementById('exportBackupForm')?.submit();
     showToast("Export de sauvegarde lancé dans un nouvel onglet.", 'warning');
-  });
-
-  document.addEventListener('submit', async (e) => {
-    const form = e.target;
-    if (!form.classList.contains('js-async-form')) return;
-    e.preventDefault();
-
-    const confirmMsg = form.dataset.confirm;
-    if (confirmMsg && !window.confirm(confirmMsg)) return;
-
-    const formData = new FormData(form);
-    formData.append('_token', csrfToken);
-
-    const res = await fetch(form.action, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: formData,
-    });
-    const json = await res.json();
-
-    if (!res.ok || !json.success) {
-      showToast(json.message || json.error || 'Action impossible.', 'error');
-      return;
-    }
-
-    showToast(json.message || 'Action enregistrée.');
-    if (json.notice) showToast(json.notice, 'warning');
-
-    if (form.dataset.refreshUsers === '1') {
-      await refreshUsersFragments(json);
-      if (form.closest('#editUserModal')) bootstrap.Modal.getInstance(document.getElementById('editUserModal'))?.hide();
-      if (form.closest('#create-account')) form.reset();
-    }
   });
 
 })();
